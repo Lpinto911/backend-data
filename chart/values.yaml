@@ -1,0 +1,10 @@
+replicaCount: 1
+image:
+  repository: registry-1.docker.io/lpintofsgrp/backend-data
+  tag: "{{ tag }}"
+service:
+  port: 8081
+mongo:
+  host: mongodb
+  port: 27017
+  database: commentsdb

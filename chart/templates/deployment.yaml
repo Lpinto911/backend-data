@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-data
+  labels:
+    app: backend-data
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: backend-data
+  template:
+    metadata:
+      labels:
+        app: backend-data
+    spec:
+      containers:
+      - name: backend-data
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 8081
+        env:
+        - name: MONGO_HOST
+          value: "{{ .Values.mongo.host }}"
+        - name: MONGO_PORT
+          value: "{{ .Values.mongo.port }}"
+        - name: MONGO_DB
+          value: "{{ .Values.mongo.database }}"
