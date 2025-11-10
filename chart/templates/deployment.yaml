@@ -20,9 +20,19 @@ spec:
         ports:
         - containerPort: 8081
         env:
-        - name: MONGO_HOST
-          value: "{{ .Values.mongo.host }}"
-        - name: MONGO_PORT
-          value: "{{ .Values.mongo.port }}"
-        - name: MONGO_DB
-          value: "{{ .Values.mongo.database }}"
+        - name: POSTGRES_HOST
+          value: "{{ .Values.postgres.host }}"
+        - name: POSTGRES_PORT
+          value: "{{ .Values.postgres.port }}"
+        - name: POSTGRES_DB
+          value: "{{ .Values.postgres.database }}"
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
